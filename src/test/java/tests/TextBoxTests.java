@@ -5,7 +5,10 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.image;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byValue;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -23,32 +26,48 @@ public class TextBoxTests {
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        $("#submit").scrollIntoView(true);
+        //заполняем форму и отправляем ее
         $("#firstName").setValue("Alex");
         $("#lastName").setValue("Tall");
-        $("#userEmail").setValue("alex45889@egorov.com");
-        $("[for='gender-radio-3']").click();
-        $("#userNumber").setValue("9991199953");
-        $("#dateOfBirthInput").setValue("25 Jul 1999");
-        $("#subjectsInput").val("Physics").pressEnter();
-        $("[for='hobbies-checkbox-3']").click();
-        $("#uploadPicture").uploadFromClasspath("photo_2022-06-27_11-31-08.jpg");
-        $("#currentAddress-label").setValue("Some street 1");
-        $("#state").scrollTo().click();
-        $("#react-select-3-input").val("Haryana").pressEnter();
+        $("#userEmail").setValue("Alex@mail.ru");
+        $("#genterWrapper").$(byText("Other")).click();
+        $("#userNumber").setValue("9994445566");
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOptionByValue("9");
+        $(".react-datepicker__year-select").selectOptionByValue("1999");
+        $(".react-datepicker__day--020:not(.react-datepicker__day--outside-month)").click();
+        $("#subjectsInput").click();
+        $("#subjectsInput").setValue("e");
+        $(byText("Economics")).click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+        $("#currentAddress").setValue("Russia");
+        $("#state").click();
+        $(byText("Rajasthan")).click();
         $("#city").click();
-        $("#react-select-4-input").val("Karnal").pressEnter();
+        $(byText("Jaiselmer")).click();
         $("#submit").click();
 
-        $(".table-responsive").shouldHave(
-                text("Alex Tall"),
-                text("alex45889@egorov.com"),
-                text("Other"),
-                text("9991199953"),
-                text("25 Jul 1999"),
-                text("Physics"),
-                text("Music"),
-                text("photo_2022-06-27_11-31-08.jpg"),
-                text("Some street 1"),
-                text("Haryana Karnal"));
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").$(byText("Student Name"))
+                .parent().shouldHave(text("Alex Tall"));
+        $(".table-responsive").$(byText("Student Email"))
+                .parent().shouldHave(text("Alex@mail.ru"));
+        $(".table-responsive").$(byText("Gender"))
+                .parent().shouldHave(text("Other"));
+        $(".table-responsive").$(byText("Mobile"))
+                .parent().shouldHave(text("9994445566"));
+        $(".table-responsive").$(byText("Date of Birth"))
+                .parent().shouldHave(text("20 October,1999"));
+        $(".table-responsive").$(byText("Subjects"))
+                .parent().shouldHave(text("Economics"));
+        $(".table-responsive").$(byText("Hobbies"))
+                .parent().shouldHave(text("Sports"));
+        $(".table-responsive").$(byText("Address"))
+                .parent().shouldHave(text("Russia"));
+        $(".table-responsive").$(byText("State and City"))
+                .parent().shouldHave(text("Rajasthan Jaiselmer"));
+        $("#closeLargeModal").click();
     }
 }
