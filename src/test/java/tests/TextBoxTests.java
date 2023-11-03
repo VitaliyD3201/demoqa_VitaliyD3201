@@ -1,17 +1,19 @@
 package tests;
 
-
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import java.io.File;
 
 public class TextBoxTests {
+
+    File image = new File("src/test/resources/Test1.PNG");
 
     @BeforeAll
     static void beforeAll() {
@@ -41,6 +43,7 @@ public class TextBoxTests {
         $("#subjectsInput").setValue("e");
         $(byText("Economics")).click();
         $("#hobbiesWrapper").$(byText("Sports")).click();
+        $("#uploadPicture").uploadFile(image);
         $("#currentAddress").setValue("Russia");
         $("#state").click();
         $(byText("Rajasthan")).click();
@@ -67,6 +70,9 @@ public class TextBoxTests {
                 .parent().shouldHave(text("Russia"));
         $(".table-responsive").$(byText("State and City"))
                 .parent().shouldHave(text("Rajasthan Jaiselmer"));
-        $("#closeLargeModal").click();
+        $(".table-responsive").$(byText("Picture"))
+                .parent().shouldHave(text("Test1.PNG"));
+
+
     }
 }
