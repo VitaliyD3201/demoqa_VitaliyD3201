@@ -8,8 +8,7 @@ import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxTests {
 
@@ -20,13 +19,14 @@ public class TextBoxTests {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
         Configuration.timeout = 5000; // default 4000
     }
 
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         $("#submit").scrollIntoView(true);
         //заполняем форму и отправляем ее
@@ -43,7 +43,7 @@ public class TextBoxTests {
         $("#subjectsInput").setValue("e");
         $(byText("Economics")).click();
         $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFile(image);
+        $("#uploadPicture").uploadFromClasspath("Test1.png");
         $("#currentAddress").setValue("Russia");
         $("#state").click();
         $(byText("Rajasthan")).click();
