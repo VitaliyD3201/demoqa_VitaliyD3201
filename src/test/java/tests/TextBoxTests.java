@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
 
 import java.io.File;
 
@@ -10,35 +11,22 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TextBoxTests {
-
-    File image = new File("src/test/resources/Test1.PNG");
-
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 5000; // default 4000
-    }
+public class TextBoxTests extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void fillFormTest() {
-        open("/automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        $("#submit").scrollIntoView(true);
+        registrationPage.openPage()
+                .setFirstName("Alex")
+                .setLastName("Tall")
+                .setEmail("Alex@mail.ru")
+                .setGender("Other")
+                .setUserNumber("9994445566")
+                .setDateOfBirth("20", "July", "2008")
+                ;
+
         //заполняем форму и отправляем ее
-        $("#firstName").setValue("Alex");
-        $("#lastName").setValue("Tall");
-        $("#userEmail").setValue("Alex@mail.ru");
-        $("#genterWrapper").$(byText("Other")).click();
-        $("#userNumber").setValue("9994445566");
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("9");
-        $(".react-datepicker__year-select").selectOptionByValue("1999");
-        $(".react-datepicker__day--020:not(.react-datepicker__day--outside-month)").click();
+
         $("#subjectsInput").click();
         $("#subjectsInput").setValue("e");
         $(byText("Economics")).click();
@@ -61,7 +49,7 @@ public class TextBoxTests {
         $(".table-responsive").$(byText("Mobile"))
                 .parent().shouldHave(text("9994445566"));
         $(".table-responsive").$(byText("Date of Birth"))
-                .parent().shouldHave(text("20 October,1999"));
+                .parent().shouldHave(text("20 July,2008"));
         $(".table-responsive").$(byText("Subjects"))
                 .parent().shouldHave(text("Economics"));
         $(".table-responsive").$(byText("Hobbies"))
