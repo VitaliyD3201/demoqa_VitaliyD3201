@@ -23,15 +23,14 @@ public class TextBoxTests extends TestBase {
                 .setGender("Other")
                 .setUserNumber("9994445566")
                 .setDateOfBirth("20", "July", "2008")
+                .setData()
+                .setHobbies("Sports")
+                .setUploadPicture()
+                .setCurrentAddress("Russia")
                 ;
 
         //заполняем форму и отправляем ее
 
-        $("#subjectsInput").click();
-        $("#subjectsInput").setValue("e");
-        $(byText("Economics")).click();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("Test1.png");
         $("#currentAddress").setValue("Russia");
         $("#state").click();
         $(byText("Rajasthan")).click();

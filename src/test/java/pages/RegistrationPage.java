@@ -14,7 +14,11 @@ public class RegistrationPage {
             userEmailInput = $("#userEmail"),
             genderWrapper = $("#genterWrapper"),
             userNumberInput = $("#userNumber"),
-            calendarInput = $("#dateOfBirthInput");
+            calendarInput = $("#dateOfBirthInput"),
+            hobbiesWrapper = $("#hobbiesWrapper"),
+            currentAddressInput = $("#currentAddress");
+
+
 
 
     CalendarComponent calendarComponent = new CalendarComponent();
@@ -64,6 +68,36 @@ public class RegistrationPage {
 
         return this;
     }
+
+    public RegistrationPage setData() {
+        $("#subjectsInput").click();
+        $("#subjectsInput").setValue("e");
+        $(byText("Economics")).click();
+
+        return this;
+    }
+
+    public RegistrationPage setHobbies(String value) {
+        hobbiesWrapper.$(byText(value)).click();
+
+        return this;
+    }
+
+    public RegistrationPage setUploadPicture() {
+        $("#uploadPicture").uploadFromClasspath("Test1.png");
+
+        return this;
+    }
+
+    public RegistrationPage setCurrentAddress(String value) {
+        currentAddressInput.setValue(value);
+
+        return this;
+    }
+
+
+
+
     public RegistrationPage checkResult(String key, String value) {
         $(".table-responsive").$(byText(key)).parent()
                 .shouldHave(text(value));
