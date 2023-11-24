@@ -16,8 +16,13 @@ public class RegistrationPage {
             userNumberInput = $("#userNumber"),
             calendarInput = $("#dateOfBirthInput"),
             hobbiesWrapper = $("#hobbiesWrapper"),
-            currentAddressInput = $("#currentAddress");
+            currentAddressInput = $("#currentAddress"),
 
+            stateCityWrapper = $("#stateCity-wrapper"),
+            selectState = stateCityWrapper.$(byText("Select State")),
+            selectCity = stateCityWrapper.$(byText("Select City")),
+
+            submit = $("#submit");
 
 
 
@@ -95,13 +100,30 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setState(String value) {
+        selectState.click();
+        stateCityWrapper.$(byText(value)).click();
+        return this;
+    }
 
+    public RegistrationPage setCity(String value) {
+        selectCity.click();
+        stateCityWrapper.$(byText(value)).click();
+        return this;
+    }
 
+    public RegistrationPage submit() {
+        submit.click();
+        return this;
+    }
 
     public RegistrationPage checkResult(String key, String value) {
         $(".table-responsive").$(byText(key)).parent()
                 .shouldHave(text(value));
 
         return this;
+    }
+
+    public void checkResult() {
     }
 }

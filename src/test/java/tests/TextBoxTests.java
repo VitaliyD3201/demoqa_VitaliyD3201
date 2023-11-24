@@ -27,39 +27,73 @@ public class TextBoxTests extends TestBase {
                 .setHobbies("Sports")
                 .setUploadPicture()
                 .setCurrentAddress("Russia")
+                .setState("Rajasthan")
+                .setCity("Jaiselmer")
+                .submit()
                 ;
 
         //заполняем форму и отправляем ее
 
-        $("#currentAddress").setValue("Russia");
-        $("#state").click();
-        $(byText("Rajasthan")).click();
-        $("#city").click();
-        $(byText("Jaiselmer")).click();
-        $("#submit").click();
+        registrationPage.checkResult("Student Name", "Alex Tall")
+                .checkResult("Student Email", "Alex@mail.ru")
+                .checkResult("Gender", "Other")
+                .checkResult("Mobile", "9994445566")
+                .checkResult("Date of Birth", "20 July,2008")
+                .checkResult("Subjects", "Economics")
+                .checkResult("Hobbies", "Hobbies")
+                .checkResult("Picture", "Test1.PNG")
+                .checkResult("Address", "Russia")
+                .checkResult("State and City", "Rajasthan Jaiselmer");
 
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").$(byText("Student Name"))
-                .parent().shouldHave(text("Alex Tall"));
-        $(".table-responsive").$(byText("Student Email"))
-                .parent().shouldHave(text("Alex@mail.ru"));
-        $(".table-responsive").$(byText("Gender"))
-                .parent().shouldHave(text("Other"));
-        $(".table-responsive").$(byText("Mobile"))
-                .parent().shouldHave(text("9994445566"));
-        $(".table-responsive").$(byText("Date of Birth"))
-                .parent().shouldHave(text("20 July,2008"));
-        $(".table-responsive").$(byText("Subjects"))
-                .parent().shouldHave(text("Economics"));
-        $(".table-responsive").$(byText("Hobbies"))
-                .parent().shouldHave(text("Sports"));
-        $(".table-responsive").$(byText("Address"))
-                .parent().shouldHave(text("Russia"));
-        $(".table-responsive").$(byText("State and City"))
-                .parent().shouldHave(text("Rajasthan Jaiselmer"));
-        $(".table-responsive").$(byText("Picture"))
-                .parent().shouldHave(text("Test1.PNG"));
+    }
+    @Test
+    void fillFormTestMinimal() {
+        registrationPage.openPage()
+                .setFirstName("Alex")
+                .setLastName("Tall")
+                .setEmail("Alex@mail.ru")
+                .setGender("Other")
+                .setUserNumber("9994445566")
+                .submit()
+        ;
+
+        //заполняем форму и отправляем ее
+
+        registrationPage.checkResult("Student Name", "Alex Tall")
+                .checkResult("Student Email", "Alex@mail.ru")
+                .checkResult("Gender", "Other")
+                .checkResult("Mobile", "9994445566");
 
 
     }
+
+
+    @Test
+    void fillFormTestMinus() {
+        registrationPage.openPage()
+                .setFirstName("Alex")
+                .setLastName("Tall")
+                .setEmail("Alex@mail.ru")
+                .setGender("Other")
+                .setUserNumber("9994445566")
+                .submit()
+        ;
+
+        //заполняем форму и отправляем ее
+
+        registrationPage.checkResult("Student Name", "Alex Tall")
+                .checkResult("Student Email", "Alex@mail.ru")
+                .checkResult("Gender", "Other")
+                .checkResult("Mobile", "9994445566");
+    }
+    @Test
+    void negativeScenario()
+    {
+        registrationPage.openPage()
+                .submit();
+
+        registrationPage.checkResult();
+
+    }
+
 }
