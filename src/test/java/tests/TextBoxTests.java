@@ -1,15 +1,10 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
@@ -23,7 +18,7 @@ public class TextBoxTests extends TestBase {
                 .setGender("Other")
                 .setUserNumber("9994445566")
                 .setDateOfBirth("20", "July", "2008")
-                .setData()
+                .setData("Economics")
                 .setHobbies("Sports")
                 .setUploadPicture()
                 .setCurrentAddress("Russia")
@@ -68,24 +63,7 @@ public class TextBoxTests extends TestBase {
     }
 
 
-    @Test
-    void fillFormTestMinus() {
-        registrationPage.openPage()
-                .setFirstName("Alex")
-                .setLastName("Tall")
-                .setEmail("Alex@mail.ru")
-                .setGender("Other")
-                .setUserNumber("9994445566")
-                .submit()
-        ;
 
-        //заполняем форму и отправляем ее
-
-        registrationPage.checkResult("Student Name", "Alex Tall")
-                .checkResult("Student Email", "Alex@mail.ru")
-                .checkResult("Gender", "Other")
-                .checkResult("Mobile", "9994445566");
-    }
     @Test
     void negativeScenario()
     {

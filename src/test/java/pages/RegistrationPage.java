@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
-    private SelenideElement firstNameInput = $("#firstName"),
+    private final  SelenideElement firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
             genderWrapper = $("#genterWrapper"),
@@ -21,7 +21,10 @@ public class RegistrationPage {
             stateCityWrapper = $("#stateCity-wrapper"),
             selectState = stateCityWrapper.$(byText("Select State")),
             selectCity = stateCityWrapper.$(byText("Select City")),
+            dataInput = $("#subjectsInput"),
 
+            uploadPictureInput = $("#uploadPicture"),
+            tableResponsiveOutput = $(".table-responsive"),
             submit = $("#submit");
 
 
@@ -74,11 +77,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setData() {
-        $("#subjectsInput").click();
-        $("#subjectsInput").setValue("e");
-        $(byText("Economics")).click();
-
+    public RegistrationPage setData(String value) {
+        dataInput.setValue(value).pressEnter();
         return this;
     }
 
@@ -89,7 +89,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setUploadPicture() {
-        $("#uploadPicture").uploadFromClasspath("Test1.png");
+        uploadPictureInput.uploadFromClasspath("Test1.png");
 
         return this;
     }
@@ -118,7 +118,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage checkResult(String key, String value) {
-        $(".table-responsive").$(byText(key)).parent()
+        tableResponsiveOutput.$(byText(key)).parent()
                 .shouldHave(text(value));
 
         return this;
