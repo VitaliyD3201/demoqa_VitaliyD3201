@@ -20,7 +20,7 @@ public class TextBoxTests extends TestBase {
                 .setDateOfBirth("20", "July", "2008")
                 .setData("Economics")
                 .setHobbies("Sports")
-                .setUploadPicture()
+                .setUploadPicture("Test1.png")
                 .setCurrentAddress("Russia")
                 .setState("Rajasthan")
                 .setCity("Jaiselmer")
