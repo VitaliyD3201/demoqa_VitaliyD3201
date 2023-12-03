@@ -1,59 +1,64 @@
 package tests;
 
+
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
+
+
+
 public class TexBoxTestsFaker extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
-
+    TestData testData = new TestData();
     @Test
     void fillFormTest() {
         registrationPage.openPage()
-                .setFirstName("Alex")
-                .setLastName("Tall")
-                .setEmail("Alex@mail.ru")
-                .setGender("Other")
-                .setUserNumber("9994445566")
-                .setDateOfBirth("20", "July", "2008")
-                .setData("Economics")
-                .setHobbies("Sports")
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setEmail(testData.userEmail)
+                .setGender(testData.gender)
+                .setUserNumber(testData.userNumber)
+                .setDateOfBirth(testData.strDayOfBirth, testData.monthOfBirth, testData.strYearOfBirth)
+                .setData(testData.subjectsInput)
+                .setHobbies(testData.hobbies)
                 .setUploadPicture()
-                .setCurrentAddress("Russia")
-                .setState("Rajasthan")
-                .setCity("Jaiselmer")
+                .setCurrentAddress(testData.currentAddress)
+                .setState(testData.state)
+                .setCity(testData.city)
                 .submit()
         ;
 
         //заполняем форму и отправляем ее
 
-        registrationPage.checkResult("Student Name", "Alex Tall")
-                .checkResult("Student Email", "Alex@mail.ru")
-                .checkResult("Gender", "Other")
-                .checkResult("Mobile", "9994445566")
-                .checkResult("Date of Birth", "20 July,2008")
-                .checkResult("Subjects", "Economics")
-                .checkResult("Hobbies", "Hobbies")
-                .checkResult("Picture", "Test1.PNG")
-                .checkResult("Address", "Russia")
-                .checkResult("State and City", "Rajasthan Jaiselmer");
+        registrationPage.checkResult("Student Name", testData.firstName + "\n" + testData.lastName)
+                .checkResult("Student Email", testData.userEmail)
+                .checkResult("Gender", testData.gender)
+                .checkResult("Mobile", testData.userNumber)
+                .checkResult("Date of Birth", testData.strDayOfBirth + "\n" +
+                        testData.monthOfBirth + "," +
+                        testData.strYearOfBirth)
+                .checkResult("Subjects", testData.subjectsInput)
+                .checkResult("Hobbies",testData.hobbies)
+                .checkResult("Picture",testData.nameForPicture)
+                .checkResult("Address",testData.currentAddress)
+                .checkResult("State and City",testData.state + "\n" + testData.city);
 
     }
     @Test
     void fillFormTestMinimal() {
         registrationPage.openPage()
-                .setFirstName("Alex")
-                .setLastName("Tall")
-                .setEmail("Alex@mail.ru")
-                .setGender("Other")
-                .setUserNumber("9994445566")
-                .submit()
-        ;
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setEmail(testData.userEmail)
+                .setGender(testData.gender)
+                .setUserNumber(testData.userNumber)
+                .submit();
 
         //заполняем форму и отправляем ее
 
-        registrationPage.checkResult("Student Name", "Alex Tall")
-                .checkResult("Student Email", "Alex@mail.ru")
-                .checkResult("Gender", "Other")
-                .checkResult("Mobile", "9994445566");
+        registrationPage.checkResult("Student Name", testData.firstName + "\n" + testData.lastName)
+                .checkResult("Student Email", testData.userEmail)
+                .checkResult("Gender", testData.gender)
+                .checkResult("Mobile", testData.userNumber);
 
 
     }
