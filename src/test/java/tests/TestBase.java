@@ -3,8 +3,6 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
-import java.io.File;
-
 public class TestBase {
 
 
