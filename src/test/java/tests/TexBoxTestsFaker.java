@@ -20,7 +20,7 @@ public class TexBoxTestsFaker extends TestBase {
                 .setDateOfBirth(testData.strDayOfBirth, testData.monthOfBirth, testData.strYearOfBirth)
                 .setData(testData.subjectsInput)
                 .setHobbies(testData.hobbies)
-                .setUploadPicture()
+                .setUploadPicture("Test1.png")
                 .setCurrentAddress(testData.currentAddress)
                 .setState(testData.state)
                 .setCity(testData.city)
